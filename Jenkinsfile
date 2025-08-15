@@ -1,4 +1,4 @@
-// This pipeline is for Eureka microservice deployment
+// This pipeline is for product microservice deployment
 pipeline {
     agent {
         label 'java-slave'
@@ -67,7 +67,7 @@ pipeline {
             steps {
                 // using maven
                 script {
-                    buildApp.call()
+                    buildApp().call()
                 }
             }
         }
