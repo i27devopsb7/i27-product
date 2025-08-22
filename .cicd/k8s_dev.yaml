@@ -1,0 +1,36 @@
+# Deployment yaml 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: i27-product-app
+  #namespace: i27-product
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: i27-product-app
+  template:
+    metadata:
+      labels:
+        app: i27-product-app
+    spec:
+      containers:
+      - name: i27-product-container
+        image: DIT # this image will be replaced by the actual image through shared library method
+        ports:
+        - containerPort: 8132
+---
+# Service yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: i27-product-service
+  #namespace: i27-product
+spec:
+  selector:
+    app: i27-product-app
+  ports:
+  - protocol: TCP
+    port: 80 # port on the service
+    targetPort: 8132 # port on the container
+  type: NodePort
